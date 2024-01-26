@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  gateway:
+    build: .
+    ports:
+      - 443:443
+
+    depends_on:
+      - api
+
+  api:
+    build: ./server
+    ports:
+      - 13000:3000

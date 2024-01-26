@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@koa/cors": "^5.0.0",
     "@videojs-player/vue": "^1.0.0",
     "axios": "^1.6.6",
     "video.js": "^8.10.0",

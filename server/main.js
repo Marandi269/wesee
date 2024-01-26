@@ -9,6 +9,11 @@ const cors = require('@koa/cors');
 app.use(cors({
   "origin": "*",
 }));
+
+app.use(async (ctx, next) => {
+  console.log('Requested Path:', ctx.path);
+  await next(); // 继续执行后续中间件
+});
 const router = new Router();
 
 // 设置 HTTP 路由

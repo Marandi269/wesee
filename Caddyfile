@@ -1,0 +1,14 @@
+vc.mirav.cn {
+    root * /app
+    file_server
+
+    @api path /api/*
+    handle @api {
+        uri strip_prefix /api
+        reverse_proxy api:3000
+    }
+
+    handle {
+        try_files {path} /index.html
+    }
+}
