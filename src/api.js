@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const instance = axios.create({
-  baseURL: '/api', // 替换为你的 API 基础 URL
+  baseURL: import.meta.env.VITE_API_URL || '/api', // 替换为你的 API 基础 URL
 });
 
 
@@ -11,7 +11,8 @@ let wsClient = null;
 const scheme = window.location.protocol;
 const host = window.location.host;
 const wsScheme = scheme === 'https:' ? 'wss' : 'ws';
-const wsUrl = `${wsScheme}://${host}/api/sync`;
+console.log('VITE_WS_URL:',import.meta.env.VITE_WS_URL );
+const wsUrl = import.meta.env.VITE_WS_URL || `${wsScheme}://${host}/api/sync`;
 export default {
   list: () => instance.get('/list').then(resp => resp.data),
   ws: {

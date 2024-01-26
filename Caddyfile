@@ -2,6 +2,10 @@ vc.mirav.cn {
     root * /app
     file_server
 
+    handle /.well-known/* {
+        file_server
+    }
+
     @api path /api/*
     handle @api {
         uri strip_prefix /api
