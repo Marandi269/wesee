@@ -9,7 +9,7 @@ const routes = [
     component: () => import('./views/PlayList.vue')
   },
   {
-    path: '/play',
+    path: '/play/:video_id',
     name: 'Play',
     component: () => import('./views/PlayView.vue')
   }
