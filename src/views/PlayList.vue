@@ -23,9 +23,11 @@ onMounted(async () => {
         <h3>{{ sp.title }}</h3>
         <ul class="flex flex-wrap">
 
-          <li v-for="ep in sp.episodes" class="px-4 py-2">
+          <li v-for="(ep, index) in sp.episodes" class="px-4 py-2">
             <router-link
-                :to="{ name: 'Play', query: { url: ep.url, title: `${anime.title}:${sp.title}:${ep.title}` } }">
+                :to="{ name: 'Play',
+                query: { room : 1 ,sp, index, url: ep.url, title: `${anime.title}:${sp.title}:${ep.title}`}
+            }">
               <button type="button"
                       class="rounded-md bg-indigo-50 px-3
                       py-2 text-sm font-semibold

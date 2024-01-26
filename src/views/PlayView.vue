@@ -8,12 +8,15 @@ import api from "../api.js";
 
 const title = ref('Title');
 const url = ref('');
+const index = ref(0);
+const room = ref(1);
 onMounted(async () => {
   const route = useRoute();
-  console.log('PlayView mounted:', route.query);
+  console.log('PlayView mounted:', route.query, route);
   title.value = route.query.title;
   url.value = route.query.url;
-
+  room.value = parseInt(route.query.room);
+  index.value = route.query.index;
   await api.ws.connect();
 });
 
@@ -34,7 +37,7 @@ const pushProgress = () => {
     payload: {
       progress: currentTime.value,
       url: url.value,
-      room: 1,
+      room: parseInt(room.value),
     }
   });
 }
@@ -56,8 +59,9 @@ const setProgress = (time) => {
 
 nextTick(()=>{
   api.ws.onMessage((msg) => {
-    console.log('msg:', msg, msg.type);
-    if(msg.type === 'dispatch-progress') {
+    console.log('msg:', msg, msg.type, msg.payload.room,
+        room.value, msg.payload.room===room.value, typeof msg.payload.room, typeof room.value);
+    if(msg.type === 'dispatch-progress' && msg.payload.room===room.value) {
       setProgress(msg.payload.progress);
     }
   });
