@@ -6,7 +6,6 @@ const instance = axios.create({
 });
 
 
-let wsClient = null;
 
 const scheme = window.location.protocol;
 const host = window.location.host;
@@ -39,7 +38,7 @@ class WsClient {
   async send_json(message) {
     if (!this.wsClient || this.wsClient.readyState === WebSocket.CLOSED || this.wsClient.readyState === WebSocket.CLOSING) {
       console.log('WebSocket is disconnected. Attempting to reconnect...');
-      this.connect();
+      await this.connect();
     }
     this.wsClient.send(JSON.stringify(message));
   }
@@ -60,28 +59,4 @@ class WsClient {
 export default {
   list: () => instance.get('/list').then(resp => resp.data),
   ws: new WsClient(),
-  // ws: {
-  //   connect: () => {
-  //     wsClient = new WebSocket(wsUrl);
-  //     return new Promise((resolve, reject) => {
-  //       wsClient.onopen = () => {
-  //         console.log('WebSocket client connected');
-  //         resolve();
-  //       };
-  //       wsClient.onerror = err => {
-  //         reject(err);
-  //       };
-  //     });
-  //   },
-  //   send_json: message => {
-  //     wsClient.send(JSON.stringify(message));
-  //   },
-  //   onMessage: handler => {
-  //     wsClient.onmessage = (buffer) => handler(JSON.parse(buffer.data));
-  //   },
-  //   close: () => {
-  //     wsClient.close();
-  //     wsClient = null;
-  //   }
-  // }
 }

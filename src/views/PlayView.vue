@@ -99,7 +99,7 @@ nextTick(() => {
         autoplay
         crossorigin="anonymous"
         playsinline
-        controls
+        :controls="false"
         :volume="0.6"
         :height="320"
         :playback-rates="[0.7, 1.0, 1.5, 2.0]"
